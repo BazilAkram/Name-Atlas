@@ -240,7 +240,10 @@ function getDominantSex(name) {
   if (!entry) return null;
   const maleTotal = sum((entry.M || []).map((row) => rowToObject(state.national.schema, row).count || 0));
   const femaleTotal = sum((entry.F || []).map((row) => rowToObject(state.national.schema, row).count || 0));
-  if (!maleTotal && !femaleTotal) return null;
+  const total = maleTotal + femaleTotal;
+  if (!total) return null;
+  const minorityShare = Math.min(maleTotal, femaleTotal) / total;
+  if (total >= 1000 && minorityShare >= 0.1) return "Both";
   if (maleTotal === femaleTotal) return "Both";
   return maleTotal > femaleTotal ? "M" : "F";
 }
