@@ -28,7 +28,8 @@ const state = {
   stateDataByYear: new Map(),
   currentName: "AMIR",
   nationalRangeKey: "",
-  nationalRangeManual: false
+  nationalRangeManual: false,
+  lastAutoSexName: ""
 };
 
 const els = {};
@@ -72,6 +73,7 @@ function bindEvents() {
     event.preventDefault();
     state.currentName = normalizeName(els.nameInput.value);
     state.nationalRangeManual = false;
+    applyDominantSexForName(state.currentName);
     await renderCurrentName();
   });
 
@@ -112,6 +114,7 @@ function setRandomDefaultName() {
   const displayName = toTitleCase(state.currentName);
   els.nameInput.value = displayName;
   els.nameInput.placeholder = displayName;
+  applyDominantSexForName(state.currentName);
 }
 
 async function loadMap() {
@@ -146,6 +149,9 @@ async function renderCurrentName() {
   const name = normalizeName(state.currentName || els.nameInput.value);
   state.currentName = name;
   els.nameInput.value = toTitleCase(name);
+  if (state.lastAutoSexName !== name) {
+    applyDominantSexForName(name);
+  }
 
   const nationalEntry = state.national.names?.[name];
   const censusEntry = state.census.firstnames?.[name];
@@ -180,6 +186,24 @@ function getNationalNote() {
     return "National charts are aggregated from visible state rows and are approximate.";
   }
   return "National charts use loaded SSA public rows.";
+}
+
+function applyDominantSexForName(name) {
+  const dominantSex = getDominantSex(name);
+  if (!dominantSex) return;
+  els.nationalSex.value = dominantSex;
+  els.mapSex.value = dominantSex;
+  state.lastAutoSexName = name;
+}
+
+function getDominantSex(name) {
+  const entry = state.national.names?.[name];
+  if (!entry) return null;
+  const maleTotal = sum((entry.M || []).map((row) => rowToObject(state.national.schema, row).count || 0));
+  const femaleTotal = sum((entry.F || []).map((row) => rowToObject(state.national.schema, row).count || 0));
+  if (!maleTotal && !femaleTotal) return null;
+  if (maleTotal === femaleTotal) return "Both";
+  return maleTotal > femaleTotal ? "M" : "F";
 }
 
 function setupNationalYearControls(name, nationalEntry) {
