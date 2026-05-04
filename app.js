@@ -231,8 +231,16 @@ function applyDominantSexForName(name) {
   const nationalSex = getDefaultNationalSex(name);
   const mapSex = getDominantSingleSex(name);
   if (nationalSex) els.nationalSex.value = nationalSex;
-  if (mapSex) els.mapSex.value = mapSex;
+  setMapSex(mapSex);
   state.lastAutoSexName = name;
+}
+
+function setMapSex(sex) {
+  if (sex !== "M" && sex !== "F") return;
+  els.mapSex.value = sex;
+  if (els.mapSex.value !== sex) {
+    els.mapSex.selectedIndex = sex === "M" ? 0 : 1;
+  }
 }
 
 function getSexTotals(name) {
@@ -472,6 +480,9 @@ async function renderMap(name) {
   const stateData = await loadStateYear(year);
   const paths = els.mapContainer.querySelectorAll(".map-state[data-state]");
   const metric = els.mapMetric.value;
+  if (els.mapSex.value !== "M" && els.mapSex.value !== "F") {
+    setMapSex(getDominantSingleSex(name));
+  }
   const sex = els.mapSex.value;
   els.mapCaption.textContent = `${toTitleCase(name)}, ${sex}, ${year}, ${metricLabel(metric)}. Missing states are not shown, suppressed, or unavailable.`;
 
