@@ -11,6 +11,7 @@
   --input-bg: #ffffff;
   --accent: #176c72;
   --accent-2: #bc5b3f;
+  --male-bar: #256fb0;
   --button-hover: #11575c;
   --focus: #2b7cff;
   --missing: #e7e9ec;
@@ -35,6 +36,7 @@
   --input-bg: #111817;
   --accent: #47b7ae;
   --accent-2: #db8264;
+  --male-bar: #6aa9e9;
   --button-hover: #359a92;
   --focus: #7fb3ff;
   --missing: #303a38;
@@ -294,7 +296,7 @@ button:focus {
 
 .series-m {
   fill: none;
-  stroke: var(--accent);
+  stroke: var(--male-bar);
   stroke-width: 3;
 }
 
@@ -305,7 +307,7 @@ button:focus {
 }
 
 .point-m {
-  fill: var(--accent);
+  fill: var(--male-bar);
 }
 
 .point-f {
@@ -330,7 +332,7 @@ button:focus {
 }
 
 .legend-swatch.series-m {
-  background: var(--accent);
+  background: var(--male-bar);
 }
 
 .legend-swatch.series-f {
@@ -543,13 +545,18 @@ button:focus {
 }
 
 .bar-fill {
+  display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--accent);
+  background: var(--male-bar);
 }
 
-.bar-fill.alt {
+.bar-fill.female {
   background: var(--accent-2);
+}
+
+.bar-fill.race {
+  background: var(--accent);
 }
 
 .empty {

@@ -589,10 +589,10 @@ function renderCensus(name, entry) {
   const raceTotal = sum(raceRows.map(([, value]) => value));
 
   const sexBars = [
-    ["Male", profile.countmale, sexTotal, false],
-    ["Female", profile.countfemale, sexTotal, true]
+    ["Male", profile.countmale, sexTotal, "male"],
+    ["Female", profile.countfemale, sexTotal, "female"]
   ].filter(([, value]) => isFiniteNumber(value));
-  const raceBars = raceRows.map(([label, value]) => [label, value, raceTotal, false]);
+  const raceBars = raceRows.map(([label, value]) => [label, value, raceTotal, "race"]);
 
   els.censusProfile.innerHTML = `
     <div class="profile-grid">
@@ -614,12 +614,15 @@ function fact(label, value) {
 }
 
 function renderBars(rows) {
-  return rows.map(([label, value, total, alt]) => {
+  return rows.map(([label, value, total, kind]) => {
     const pct = total > 0 ? (value / total) * 100 : 0;
+    const width = Math.max(0, Math.min(100, pct));
+    const visibleWidth = width > 0 && width < 0.8 ? 0.8 : width;
+    const fillClass = kind === "female" ? " female" : kind === "race" ? " race" : " male";
     return `
       <div class="bar-row">
         <span>${escapeHtml(label)}</span>
-        <span class="bar-track"><span class="bar-fill${alt ? " alt" : ""}" style="width: ${Math.max(0, Math.min(100, pct))}%"></span></span>
+        <span class="bar-track"><span class="bar-fill${fillClass}" style="width: ${visibleWidth}%"></span></span>
         <strong>${formatNumber(pct, 1)}%</strong>
       </div>
     `;
