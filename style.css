@@ -432,7 +432,7 @@ button:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 12px;
-  margin-top: 12px;
+  margin: 0 0 14px;
   color: var(--muted);
   font-size: 0.84rem;
 }
