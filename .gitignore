@@ -1,0 +1,9 @@
+raw/ssa/national/*.zip
+raw/ssa/national/*.txt
+raw/ssa/state/*.zip
+raw/ssa/state/*.txt
+raw/ssa/state/*.csv
+raw/census/*.xlsx
+raw/census/*.xls
+raw/census/*.csv
+scripts/__pycache__/

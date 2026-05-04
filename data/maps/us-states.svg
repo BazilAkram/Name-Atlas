@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" role="img" aria-labelledby="map-title map-desc">
+  <title id="map-title">U.S. state cartogram</title>
+  <desc id="map-desc">A compact static SVG map with one path per state for choropleth shading.</desc>
+  <g id="states">
+    <path id="WA" data-state="WA" d="M60 10h44v44h-44Z" />
+    <path id="MT" data-state="MT" d="M160 10h44v44h-44Z" />
+    <path id="ND" data-state="ND" d="M210 10h44v44h-44Z" />
+    <path id="MN" data-state="MN" d="M260 10h44v44h-44Z" />
+    <path id="WI" data-state="WI" d="M310 10h44v44h-44Z" />
+    <path id="MI" data-state="MI" d="M360 10h44v44h-44Z" />
+    <path id="NY" data-state="NY" d="M510 10h44v44h-44Z" />
+    <path id="VT" data-state="VT" d="M560 10h44v44h-44Z" />
+    <path id="NH" data-state="NH" d="M610 10h44v44h-44Z" />
+    <path id="ME" data-state="ME" d="M660 10h44v44h-44Z" />
+
+    <path id="OR" data-state="OR" d="M60 60h44v44h-44Z" />
+    <path id="ID" data-state="ID" d="M110 60h44v44h-44Z" />
+    <path id="WY" data-state="WY" d="M160 60h44v44h-44Z" />
+    <path id="SD" data-state="SD" d="M210 60h44v44h-44Z" />
+    <path id="IA" data-state="IA" d="M260 60h44v44h-44Z" />
+    <path id="IL" data-state="IL" d="M310 60h44v44h-44Z" />
+    <path id="IN" data-state="IN" d="M360 60h44v44h-44Z" />
+    <path id="PA" data-state="PA" d="M460 60h44v44h-44Z" />
+    <path id="MA" data-state="MA" d="M560 60h44v44h-44Z" />
+    <path id="RI" data-state="RI" d="M610 60h44v44h-44Z" />
+
+    <path id="CA" data-state="CA" d="M60 110h44v44h-44Z" />
+    <path id="NV" data-state="NV" d="M110 110h44v44h-44Z" />
+    <path id="UT" data-state="UT" d="M160 110h44v44h-44Z" />
+    <path id="NE" data-state="NE" d="M210 110h44v44h-44Z" />
+    <path id="MO" data-state="MO" d="M260 110h44v44h-44Z" />
+    <path id="KY" data-state="KY" d="M310 110h44v44h-44Z" />
+    <path id="OH" data-state="OH" d="M360 110h44v44h-44Z" />
+    <path id="WV" data-state="WV" d="M410 110h44v44h-44Z" />
+    <path id="MD" data-state="MD" d="M460 110h44v44h-44Z" />
+    <path id="NJ" data-state="NJ" d="M510 110h44v44h-44Z" />
+    <path id="CT" data-state="CT" d="M560 110h44v44h-44Z" />
+
+    <path id="AZ" data-state="AZ" d="M110 160h44v44h-44Z" />
+    <path id="CO" data-state="CO" d="M160 160h44v44h-44Z" />
+    <path id="KS" data-state="KS" d="M210 160h44v44h-44Z" />
+    <path id="AR" data-state="AR" d="M260 160h44v44h-44Z" />
+    <path id="TN" data-state="TN" d="M310 160h44v44h-44Z" />
+    <path id="VA" data-state="VA" d="M410 160h44v44h-44Z" />
+    <path id="NC" data-state="NC" d="M460 160h44v44h-44Z" />
+    <path id="DE" data-state="DE" d="M510 160h44v44h-44Z" />
+
+    <path id="NM" data-state="NM" d="M160 210h44v44h-44Z" />
+    <path id="OK" data-state="OK" d="M210 210h44v44h-44Z" />
+    <path id="LA" data-state="LA" d="M260 210h44v44h-44Z" />
+    <path id="MS" data-state="MS" d="M310 210h44v44h-44Z" />
+    <path id="AL" data-state="AL" d="M360 210h44v44h-44Z" />
+    <path id="GA" data-state="GA" d="M410 210h44v44h-44Z" />
+    <path id="SC" data-state="SC" d="M460 210h44v44h-44Z" />
+    <path id="DC" data-state="DC" d="M510 210h44v44h-44Z" />
+
+    <path id="TX" data-state="TX" d="M210 260h44v44h-44Z" />
+    <path id="FL" data-state="FL" d="M410 260h44v44h-44Z" />
+    <path id="AK" data-state="AK" d="M10 310h44v44h-44Z" />
+    <path id="HI" data-state="HI" d="M60 310h44v44h-44Z" />
+  </g>
+  <g id="labels">
+    <text class="state-label" x="82" y="32">WA</text><text class="state-label" x="182" y="32">MT</text><text class="state-label" x="232" y="32">ND</text><text class="state-label" x="282" y="32">MN</text><text class="state-label" x="332" y="32">WI</text><text class="state-label" x="382" y="32">MI</text><text class="state-label" x="532" y="32">NY</text><text class="state-label" x="582" y="32">VT</text><text class="state-label" x="632" y="32">NH</text><text class="state-label" x="682" y="32">ME</text>
+    <text class="state-label" x="82" y="82">OR</text><text class="state-label" x="132" y="82">ID</text><text class="state-label" x="182" y="82">WY</text><text class="state-label" x="232" y="82">SD</text><text class="state-label" x="282" y="82">IA</text><text class="state-label" x="332" y="82">IL</text><text class="state-label" x="382" y="82">IN</text><text class="state-label" x="482" y="82">PA</text><text class="state-label" x="582" y="82">MA</text><text class="state-label" x="632" y="82">RI</text>
+    <text class="state-label" x="82" y="132">CA</text><text class="state-label" x="132" y="132">NV</text><text class="state-label" x="182" y="132">UT</text><text class="state-label" x="232" y="132">NE</text><text class="state-label" x="282" y="132">MO</text><text class="state-label" x="332" y="132">KY</text><text class="state-label" x="382" y="132">OH</text><text class="state-label" x="432" y="132">WV</text><text class="state-label" x="482" y="132">MD</text><text class="state-label" x="532" y="132">NJ</text><text class="state-label" x="582" y="132">CT</text>
+    <text class="state-label" x="132" y="182">AZ</text><text class="state-label" x="182" y="182">CO</text><text class="state-label" x="232" y="182">KS</text><text class="state-label" x="282" y="182">AR</text><text class="state-label" x="332" y="182">TN</text><text class="state-label" x="432" y="182">VA</text><text class="state-label" x="482" y="182">NC</text><text class="state-label" x="532" y="182">DE</text>
+    <text class="state-label" x="182" y="232">NM</text><text class="state-label" x="232" y="232">OK</text><text class="state-label" x="282" y="232">LA</text><text class="state-label" x="332" y="232">MS</text><text class="state-label" x="382" y="232">AL</text><text class="state-label" x="432" y="232">GA</text><text class="state-label" x="482" y="232">SC</text><text class="state-label" x="532" y="232">DC</text>
+    <text class="state-label" x="232" y="282">TX</text><text class="state-label" x="432" y="282">FL</text><text class="state-label" x="32" y="332">AK</text><text class="state-label" x="82" y="332">HI</text>
+  </g>
+</svg>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NameAtlas</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">NameAtlas</p>
+        <h1>U.S. First Name Trends</h1>
+        <p class="subtitle">Explore newborn first-name trends from SSA data and all-age first-name profiles from Census data.</p>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="panel controls-panel" aria-labelledby="controls-title">
+        <div>
+          <h2 id="controls-title">Lookup</h2>
+          <p class="muted">Search by exact first name. A default name is picked at random on each load.</p>
+        </div>
+
+        <form id="search-form" class="controls-grid">
+          <label>
+            <span>First name</span>
+            <input id="name-input" name="name" type="search" autocomplete="given-name" placeholder="Jordan">
+          </label>
+
+          <label>
+            <span>National sex series</span>
+            <select id="national-sex">
+              <option value="Both">Both</option>
+              <option value="M">M</option>
+              <option value="F">F</option>
+            </select>
+          </label>
+
+          <button type="submit">Search</button>
+        </form>
+      </section>
+
+      <section id="status" class="status" aria-live="polite"></section>
+
+      <section class="grid">
+        <article class="panel summary-panel">
+          <div class="panel-heading">
+            <h2>Summary</h2>
+            <p id="summary-subtitle" class="muted"></p>
+          </div>
+          <dl id="summary-stats" class="stats-grid"></dl>
+        </article>
+
+        <article class="panel range-panel">
+          <div class="panel-heading">
+            <h2>National Chart Range</h2>
+            <p id="range-caption" class="muted"></p>
+          </div>
+          <div class="range-controls">
+            <label>
+              <span>Start year</span>
+              <input id="national-start-year" type="number" inputmode="numeric">
+            </label>
+            <label>
+              <span>End year</span>
+              <input id="national-end-year" type="number" inputmode="numeric">
+            </label>
+          </div>
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="panel-heading">
+            <h2>National Count</h2>
+            <p class="muted">Babies receiving this first name by birth year.</p>
+          </div>
+          <div id="count-chart" class="chart" role="img" aria-label="National count line chart"></div>
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="panel-heading">
+            <h2>National Rank</h2>
+            <p class="muted">Rank 1 is shown at the top.</p>
+          </div>
+          <div id="rank-chart" class="chart" role="img" aria-label="National rank line chart"></div>
+        </article>
+
+        <article class="panel map-panel">
+          <div class="panel-heading">
+            <h2>State Map</h2>
+            <p id="map-caption" class="muted"></p>
+          </div>
+          <div class="map-controls" aria-label="Map controls">
+            <label>
+              <span>Year</span>
+              <select id="map-year"></select>
+            </label>
+
+            <label>
+              <span>Sex</span>
+              <select id="map-sex">
+                <option value="M">M</option>
+                <option value="F">F</option>
+                <option value="Both">Both</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Metric</span>
+              <select id="map-metric">
+                <option value="ratePer100k">Rate per 100k</option>
+                <option value="count">Count</option>
+                <option value="rank">Rank</option>
+              </select>
+            </label>
+          </div>
+          <div id="map-container" class="map-container" aria-label="State choropleth map"></div>
+          <div id="map-legend" class="legend"></div>
+        </article>
+
+        <article class="panel census-panel">
+          <div class="panel-heading">
+            <h2>2020 Census Population Profile</h2>
+            <p class="muted">This describes all people with this first name in the 2020 Census, not newborns.</p>
+          </div>
+          <div id="census-profile"></div>
+        </article>
+
+        <article class="panel caveat-panel">
+          <h2>Source Notes</h2>
+          <p>SSA newborn data shows babies receiving this first name by birth year, sex, and state of birth. Cells with fewer than 5 births are suppressed. Census first-name data, when shown, describes all people with this first name in the 2020 Census, not newborns.</p>
+          <p class="muted">Rates are approximate when computed from public SSA rows because suppressed rows are not included in visible totals.</p>
+        </article>
+      </section>
+    </main>
+
+    <div id="tooltip" class="tooltip" hidden></div>
+    <script src="app.js"></script>
+  </body>
+</html>
