@@ -321,27 +321,33 @@ button:focus {
   filter: brightness(0.94);
 }
 
-.missing {
+.missing,
+.map-container .state.missing {
   fill: var(--missing);
 }
 
-.bucket-0 {
+.bucket-0,
+.map-container .state.bucket-0 {
   fill: var(--bucket-0);
 }
 
-.bucket-1 {
+.bucket-1,
+.map-container .state.bucket-1 {
   fill: var(--bucket-1);
 }
 
-.bucket-2 {
+.bucket-2,
+.map-container .state.bucket-2 {
   fill: var(--bucket-2);
 }
 
-.bucket-3 {
+.bucket-3,
+.map-container .state.bucket-3 {
   fill: var(--bucket-3);
 }
 
-.bucket-4 {
+.bucket-4,
+.map-container .state.bucket-4 {
   fill: var(--bucket-4);
 }
 

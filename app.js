@@ -21,6 +21,8 @@ const STATE_NAMES = {
   DC: "District of Columbia"
 };
 
+const STATE_ABBRS = new Set(Object.keys(STATE_NAMES));
+
 const state = {
   national: null,
   census: null,
@@ -122,8 +124,9 @@ async function loadMap() {
     const response = await fetch(DATA_PATHS.map);
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
     els.mapContainer.innerHTML = await response.text();
-    els.mapContainer.querySelectorAll("[data-state], path[id]").forEach((node) => {
-      const abbr = node.dataset.state || node.id;
+    els.mapContainer.querySelectorAll("[data-state], path[id], path[class], circle[class]").forEach((node) => {
+      const abbr = getStateAbbrFromMapNode(node);
+      if (!abbr) return;
       node.classList.add("state", "missing");
       node.dataset.state = abbr;
       node.setAttribute("tabindex", "0");
@@ -137,6 +140,17 @@ async function loadMap() {
     els.mapContainer.innerHTML = `<div class="empty">State map could not be loaded from ${DATA_PATHS.map}.</div>`;
     console.warn(error);
   }
+}
+
+function getStateAbbrFromMapNode(node) {
+  const explicit = (node.dataset.state || node.id || "").toUpperCase();
+  if (STATE_ABBRS.has(explicit)) return explicit;
+
+  for (const className of node.classList) {
+    const candidate = className.toUpperCase();
+    if (STATE_ABBRS.has(candidate)) return candidate;
+  }
+  return null;
 }
 
 function populateYearSelect() {

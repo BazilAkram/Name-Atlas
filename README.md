@@ -8,7 +8,7 @@ It uses only browser-native frontend files:
 - `style.css`
 - `app.js`
 - compact static JSON files in `data/`
-- a static SVG state map in `data/maps/us-states.svg`
+- a CC0 static SVG state map in `data/maps/us-states.svg`
 
 There is no backend, no database, no framework, and no build step for the deployed app.
 
@@ -113,3 +113,7 @@ SSA newborn data is based on Social Security card applications. State data is by
 The bundled national trend JSON is built from the official SSA national public rows when `raw/ssa/national/names.zip` is present. The state map uses real state-level public rows. Rates are approximate when calculated from public rows because suppressed rows are not included in visible totals.
 
 Census first-name profiles, when available, describe all people with that first name in the 2020 Census. They should not be read as demographics of newborns receiving that name.
+
+## Map Source
+
+The state map is based on Wikimedia Commons [`Blank US Map (states only).svg`](https://commons.wikimedia.org/wiki/File:Blank_US_Map_(states_only).svg), which is released under CC0 1.0 Public Domain Dedication.
