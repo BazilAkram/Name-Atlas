@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
   cacheElements();
+  syncThemeToggle();
   bindEvents();
   await loadInitialData();
   setRandomDefaultName();
@@ -50,6 +51,7 @@ async function init() {
 
 function cacheElements() {
   els.form = document.querySelector("#search-form");
+  els.themeToggle = document.querySelector("#theme-toggle");
   els.nameInput = document.querySelector("#name-input");
   els.nationalSex = document.querySelector("#national-sex");
   els.nationalStartYear = document.querySelector("#national-start-year");
@@ -71,6 +73,11 @@ function cacheElements() {
 }
 
 function bindEvents() {
+  els.themeToggle.addEventListener("click", () => {
+    const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme, true);
+  });
+
   els.form.addEventListener("submit", async (event) => {
     event.preventDefault();
     state.currentName = normalizeName(els.nameInput.value);
@@ -111,12 +118,32 @@ async function loadInitialData() {
 
 function setRandomDefaultName() {
   const names = state.national.defaultNames?.length ? state.national.defaultNames : DEFAULT_NAMES;
-  const pick = names[Math.floor(Math.random() * names.length)];
+  const pick = window.NAMEATLAS_INITIAL_NAME || names[Math.floor(Math.random() * names.length)];
   state.currentName = normalizeName(pick);
   const displayName = toTitleCase(state.currentName);
   els.nameInput.value = displayName;
   els.nameInput.placeholder = displayName;
   applyDominantSexForName(state.currentName);
+}
+
+function setTheme(theme, persist) {
+  const normalized = theme === "dark" ? "dark" : "light";
+  document.documentElement.dataset.theme = normalized;
+  if (persist) {
+    try {
+      localStorage.setItem("nameatlas-theme", normalized);
+    } catch (_error) {
+      // Theme persistence is optional; private browsing can block storage.
+    }
+  }
+  syncThemeToggle();
+}
+
+function syncThemeToggle() {
+  const isDark = document.documentElement.dataset.theme === "dark";
+  els.themeToggle.setAttribute("aria-pressed", String(isDark));
+  els.themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  els.themeToggle.title = isDark ? "Switch to light mode" : "Switch to dark mode";
 }
 
 async function loadMap() {
@@ -127,14 +154,12 @@ async function loadMap() {
     els.mapContainer.querySelectorAll("[data-state], path[id], path[class], circle[class]").forEach((node) => {
       const abbr = getStateAbbrFromMapNode(node);
       if (!abbr) return;
-      node.classList.add("state", "missing");
+      node.classList.add("map-state", "missing");
       node.dataset.state = abbr;
-      node.setAttribute("tabindex", "0");
       node.setAttribute("aria-label", STATE_NAMES[abbr] || abbr);
       node.addEventListener("mousemove", (event) => showStateTooltip(event, abbr));
       node.addEventListener("mouseleave", hideTooltip);
-      node.addEventListener("focus", (event) => showStateTooltip(event, abbr));
-      node.addEventListener("blur", hideTooltip);
+      node.addEventListener("click", (event) => event.preventDefault());
     });
   } catch (error) {
     els.mapContainer.innerHTML = `<div class="empty">State map could not be loaded from ${DATA_PATHS.map}.</div>`;
@@ -430,7 +455,7 @@ function renderLineChart(container, series, options) {
 async function renderMap(name) {
   const year = Number(els.mapYear.value || state.stateYears[0]);
   const stateData = await loadStateYear(year);
-  const paths = els.mapContainer.querySelectorAll("[data-state]");
+  const paths = els.mapContainer.querySelectorAll(".map-state[data-state]");
   const metric = els.mapMetric.value;
   const sex = els.mapSex.value;
   els.mapCaption.textContent = `${toTitleCase(name)}, ${sex}, ${year}, ${metricLabel(metric)}. Missing states are not shown, suppressed, or unavailable.`;

@@ -2,11 +2,16 @@
   color-scheme: light;
   --bg: #f6f4ef;
   --panel: #ffffff;
+  --panel-soft: #f9faf8;
   --ink: #18212b;
   --muted: #657181;
   --line: #d9dde2;
+  --header: #20303a;
+  --header-muted: #dbe5e6;
+  --input-bg: #ffffff;
   --accent: #176c72;
   --accent-2: #bc5b3f;
+  --button-hover: #11575c;
   --focus: #2b7cff;
   --missing: #e7e9ec;
   --bucket-0: #dcefed;
@@ -15,6 +20,30 @@
   --bucket-3: #38958e;
   --bucket-4: #126b68;
   --shadow: 0 10px 28px rgba(22, 31, 42, 0.08);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121817;
+  --panel: #1b2322;
+  --panel-soft: #202a28;
+  --ink: #eef4f2;
+  --muted: #a7b5b2;
+  --line: #33413e;
+  --header: #0e1718;
+  --header-muted: #bdd0cc;
+  --input-bg: #111817;
+  --accent: #47b7ae;
+  --accent-2: #db8264;
+  --button-hover: #359a92;
+  --focus: #7fb3ff;
+  --missing: #303a38;
+  --bucket-0: #274240;
+  --bucket-1: #33645f;
+  --bucket-2: #428a83;
+  --bucket-3: #58b5ad;
+  --bucket-4: #91e1d9;
+  --shadow: 0 14px 34px rgba(0, 0, 0, 0.26);
 }
 
 * {
@@ -30,9 +59,16 @@ body {
 }
 
 .site-header {
-  background: #20303a;
+  background: var(--header);
   color: #fff;
   padding: 34px max(20px, calc((100vw - 1180px) / 2)) 42px;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
 }
 
 .eyebrow {
@@ -65,7 +101,7 @@ h2 {
 .subtitle {
   max-width: 780px;
   margin-bottom: 0;
-  color: #dbe5e6;
+  color: var(--header-muted);
   font-size: 1.05rem;
 }
 
@@ -110,7 +146,7 @@ button {
   min-height: 42px;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: #fff;
+  background: var(--input-bg);
   color: var(--ink);
   font: inherit;
 }
@@ -130,7 +166,28 @@ button {
 }
 
 button:hover {
-  background: #11575c;
+  background: var(--button-hover);
+}
+
+.theme-toggle {
+  width: 44px;
+  min-width: 44px;
+  max-width: 44px;
+  min-height: 44px;
+  border-color: color-mix(in srgb, #fff 28%, transparent);
+  background: color-mix(in srgb, #fff 10%, transparent);
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  background: color-mix(in srgb, #fff 18%, transparent);
+}
+
+input::placeholder {
+  color: color-mix(in srgb, var(--muted) 78%, transparent);
 }
 
 input:focus,
@@ -222,7 +279,7 @@ button:focus {
 
 .axis,
 .grid-line {
-  stroke: #cbd1d8;
+  stroke: var(--line);
   stroke-width: 1;
 }
 
@@ -294,7 +351,7 @@ button:focus {
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: #f9faf8;
+  background: var(--panel-soft);
 }
 
 .range-controls {
@@ -309,51 +366,60 @@ button:focus {
   height: auto;
 }
 
-.state {
+.map-container svg .borders {
+  stroke: var(--panel);
+}
+
+.map-container svg .separator1 {
+  stroke: var(--line);
+}
+
+.map-state {
   fill: var(--missing);
   stroke: #fff;
   stroke-width: 2;
   cursor: default;
   transition: fill 120ms ease, transform 120ms ease;
+  outline: none;
 }
 
-.state:hover {
-  filter: brightness(0.94);
+.map-state:hover {
+  filter: brightness(1.08);
 }
 
 .missing,
-.map-container .state.missing {
+.map-container .map-state.missing {
   fill: var(--missing);
 }
 
 .bucket-0,
-.map-container .state.bucket-0 {
+.map-container .map-state.bucket-0 {
   fill: var(--bucket-0);
 }
 
 .bucket-1,
-.map-container .state.bucket-1 {
+.map-container .map-state.bucket-1 {
   fill: var(--bucket-1);
 }
 
 .bucket-2,
-.map-container .state.bucket-2 {
+.map-container .map-state.bucket-2 {
   fill: var(--bucket-2);
 }
 
 .bucket-3,
-.map-container .state.bucket-3 {
+.map-container .map-state.bucket-3 {
   fill: var(--bucket-3);
 }
 
 .bucket-4,
-.map-container .state.bucket-4 {
+.map-container .map-state.bucket-4 {
   fill: var(--bucket-4);
 }
 
 .state-label {
   pointer-events: none;
-  fill: #23313c;
+  fill: var(--ink);
   font-size: 13px;
   font-weight: 800;
   text-anchor: middle;
@@ -378,7 +444,7 @@ button:focus {
 .legend-box {
   width: 16px;
   height: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
   border-radius: 3px;
 }
 
@@ -473,7 +539,7 @@ button:focus {
   height: 10px;
   overflow: hidden;
   border-radius: 999px;
-  background: #e7eaee;
+  background: var(--missing);
 }
 
 .bar-fill {
@@ -513,6 +579,10 @@ button:focus {
 
   .panel-heading p {
     text-align: left;
+  }
+
+  .header-inner {
+    align-items: flex-start;
   }
 }
 

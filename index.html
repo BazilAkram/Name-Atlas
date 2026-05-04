@@ -4,14 +4,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>NameAtlas</title>
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem("nameatlas-theme");
+          const systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme = saved === "dark" || saved === "light" ? saved : (systemDark ? "dark" : "light");
+        } catch (_error) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <header class="site-header">
-      <div>
-        <p class="eyebrow">NameAtlas</p>
-        <h1>U.S. First Name Trends</h1>
-        <p class="subtitle">Explore newborn first-name trends from SSA data and all-age first-name profiles from Census data.</p>
+      <div class="header-inner">
+        <div>
+          <p class="eyebrow">NameAtlas</p>
+          <h1>U.S. First Name Trends</h1>
+          <p class="subtitle">Explore newborn first-name trends from SSA data and all-age first-name profiles from Census data.</p>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Switch theme">
+          <span aria-hidden="true">◐</span>
+        </button>
       </div>
     </header>
 
@@ -25,7 +41,17 @@
         <form id="search-form" class="controls-grid">
           <label>
             <span>First name</span>
-            <input id="name-input" name="name" type="search" autocomplete="given-name" placeholder="Jordan">
+            <input id="name-input" name="name" type="search" autocomplete="given-name">
+            <script>
+              (() => {
+                const names = ["Edward", "Esther", "Leo", "Laura", "Kevin", "Kelly", "Jordan"];
+                const pick = names[Math.floor(Math.random() * names.length)];
+                window.NAMEATLAS_INITIAL_NAME = pick;
+                const input = document.currentScript.previousElementSibling;
+                input.value = pick;
+                input.placeholder = pick;
+              })();
+            </script>
           </label>
 
           <label>
