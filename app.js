@@ -67,6 +67,7 @@ function cacheElements() {
   els.rankChart = document.querySelector("#rank-chart");
   els.mapContainer = document.querySelector("#map-container");
   els.mapCaption = document.querySelector("#map-caption");
+  els.mapNationalNote = document.querySelector("#map-national-note");
   els.mapLegend = document.querySelector("#map-legend");
   els.censusProfile = document.querySelector("#census-profile");
   els.tooltip = document.querySelector("#tooltip");
@@ -485,6 +486,7 @@ async function renderMap(name) {
   }
   const sex = els.mapSex.value;
   els.mapCaption.textContent = `${toTitleCase(name)}, ${sex}, ${year}, ${metricLabel(metric)}. Missing states are not shown, suppressed, or unavailable.`;
+  renderMapNationalNote(name, sex, year);
 
   if (!paths.length) return;
 
@@ -513,6 +515,20 @@ async function renderMap(name) {
   });
 
   renderMapLegend(bins, metric);
+}
+
+function renderMapNationalNote(name, sex, year) {
+  const entry = state.national.names?.[name];
+  const row = (entry?.[sex] || [])
+    .map((item) => rowToObject(state.national.schema, item))
+    .find((item) => item.year === year);
+  const displayName = toTitleCase(name);
+  if (!row || !isFiniteNumber(row.count)) {
+    els.mapNationalNote.textContent = `Nationally, ${displayName} was not shown for ${sex} births in ${year}.`;
+    return;
+  }
+  const rank = isFiniteNumber(row.rank) ? `, rank #${formatNumber(row.rank)}` : "";
+  els.mapNationalNote.textContent = `Nationally, ${formatNumber(row.count)} ${sex} babies were named ${displayName} in ${year}${rank}.`;
 }
 
 async function loadStateYear(year) {

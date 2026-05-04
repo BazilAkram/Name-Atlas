@@ -356,6 +356,13 @@ button:focus {
   background: var(--panel-soft);
 }
 
+.map-note {
+  margin-bottom: 12px;
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
 .range-controls {
   display: grid;
   grid-template-columns: repeat(2, minmax(150px, 220px));
