@@ -5,7 +5,7 @@ const DATA_PATHS = {
   map: "data/maps/us-states.svg"
 };
 
-const DEFAULT_NAMES = ["Edward", "Esther", "Leo", "Laura", "Kevin", "Kelly", "Jordan", "Cecil", "Cynthia", "Oliver", "Olivia"];
+const DEFAULT_NAMES = ["Edward", "Esther", "Leo", "Laura", "Kevin", "Kelly", "Jordan", "Cecil", "Cynthia", "Oliver", "Olivia", "Alexa", "Anakin", "Maverick", "Zelda"];
 
 const STATE_NAMES = {
   AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California",
