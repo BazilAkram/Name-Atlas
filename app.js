@@ -228,24 +228,36 @@ function getNationalNote() {
 }
 
 function applyDominantSexForName(name) {
-  const dominantSex = getDominantSex(name);
-  if (!dominantSex) return;
-  els.nationalSex.value = dominantSex;
-  els.mapSex.value = dominantSex;
+  const nationalSex = getDefaultNationalSex(name);
+  const mapSex = getDominantSingleSex(name);
+  if (nationalSex) els.nationalSex.value = nationalSex;
+  if (mapSex) els.mapSex.value = mapSex;
   state.lastAutoSexName = name;
 }
 
-function getDominantSex(name) {
+function getSexTotals(name) {
   const entry = state.national.names?.[name];
   if (!entry) return null;
   const maleTotal = sum((entry.M || []).map((row) => rowToObject(state.national.schema, row).count || 0));
   const femaleTotal = sum((entry.F || []).map((row) => rowToObject(state.national.schema, row).count || 0));
-  const total = maleTotal + femaleTotal;
+  return { maleTotal, femaleTotal, total: maleTotal + femaleTotal };
+}
+
+function getDefaultNationalSex(name) {
+  const totals = getSexTotals(name);
+  if (!totals) return null;
+  const { maleTotal, femaleTotal, total } = totals;
   if (!total) return null;
   const minorityShare = Math.min(maleTotal, femaleTotal) / total;
   if (total >= 1000 && minorityShare >= 0.1) return "Both";
   if (maleTotal === femaleTotal) return "Both";
   return maleTotal > femaleTotal ? "M" : "F";
+}
+
+function getDominantSingleSex(name) {
+  const totals = getSexTotals(name);
+  if (!totals || !totals.total) return null;
+  return totals.maleTotal >= totals.femaleTotal ? "M" : "F";
 }
 
 function setupNationalYearControls(name, nationalEntry) {
