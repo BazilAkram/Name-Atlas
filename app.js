@@ -230,7 +230,7 @@ function getNationalNote() {
 
 function applyDominantSexForName(name) {
   const nationalSex = getDefaultNationalSex(name);
-  const mapSex = getDominantSingleSex(name);
+  const mapSex = getDominantSingleSexForYear(name, 2024) || getDominantSingleSex(name);
   if (nationalSex) els.nationalSex.value = nationalSex;
   setMapSex(mapSex);
   state.lastAutoSexName = name;
@@ -267,6 +267,22 @@ function getDominantSingleSex(name) {
   const totals = getSexTotals(name);
   if (!totals || !totals.total) return null;
   return totals.maleTotal >= totals.femaleTotal ? "M" : "F";
+}
+
+function getDominantSingleSexForYear(name, year) {
+  const entry = state.national.names?.[name];
+  if (!entry) return null;
+  const maleCount = getNationalCountForYear(entry, "M", year);
+  const femaleCount = getNationalCountForYear(entry, "F", year);
+  if (!maleCount && !femaleCount) return null;
+  return maleCount >= femaleCount ? "M" : "F";
+}
+
+function getNationalCountForYear(entry, sex, year) {
+  const row = (entry[sex] || [])
+    .map((item) => rowToObject(state.national.schema, item))
+    .find((item) => item.year === year);
+  return row?.count || 0;
 }
 
 function setupNationalYearControls(name, nationalEntry) {
@@ -482,7 +498,7 @@ async function renderMap(name) {
   const paths = els.mapContainer.querySelectorAll(".map-state[data-state]");
   const metric = els.mapMetric.value;
   if (els.mapSex.value !== "M" && els.mapSex.value !== "F") {
-    setMapSex(getDominantSingleSex(name));
+    setMapSex(getDominantSingleSexForYear(name, 2024) || getDominantSingleSex(name));
   }
   const sex = els.mapSex.value;
   els.mapCaption.textContent = `${toTitleCase(name)}, ${sex}, ${year}, ${metricLabel(metric)}. Missing states are not shown, suppressed, or unavailable.`;
